@@ -5,11 +5,7 @@
       "store.milo")
    (saved_offer_sym '')
    (load
-      #ifndef NOWIINETWORKING
-      #ifndef HX_EE
       {content_loading_panel allowed_to_show TRUE}
-      #endif
-      #endif
       {content_mgr start_refresh}
       {store_browser_panel reset}
       {set
@@ -18,11 +14,7 @@
    (is_loaded
       {content_mgr refresh_done})
    (finish_load
-      #ifndef NOWIINETWORKING
-      #ifndef HX_EE
       {content_loading_panel allowed_to_show FALSE}
-      #endif
-      #endif
       {background.tnm set_frame 0}
       {wait.grp set_showing FALSE})
    (enter
@@ -139,15 +131,11 @@
    BandScreen
    store_unloaded_screen
    STORE_UNLOADED_HANDLERS
-   #ifndef HX_EE
    (next_screen
       {if_else
          {main_panel get show_rbn_store}
          main_store_screen
          main_screen})}
-   #else
-   (next_screen main_screen)}
-   #endif
 {new
    BandScreen
    store_unloaded_matchmaking_screen
@@ -972,13 +960,9 @@
    (cur_offer
       {if_else
          [sub_offer]
-         #ifndef HX_EE
          {store_panel
             find_offer
             [sub_offer]}
-         #else
-         [sub_offer]
-         #endif
          {store_panel
             find_offer
             {store_panel get saved_offer_sym}}})
@@ -1048,7 +1032,7 @@
       ($sub_offer)
       {set
          [sub_offer]
-         {$sub_offer #ifndef HX_EE short_name #endif}}
+         {$sub_offer short_name}}
       {ui goto_screen store_info_screen TRUE})
    (enum_finished
       {if
@@ -1056,12 +1040,10 @@
          {do
             ($offer
                {$this cur_offer})
-            #ifndef HX_EE
             ($type
                {$offer offer_type})
             ($provider
                {store_panel get info_provider})
-            #endif
             {$this refresh_buttons FALSE}
             {cost.lbl
                set_showing
@@ -1118,9 +1100,7 @@
    store_download_again_screen
    (panels dialog_panel)
    (focus dialog_panel)
-   #ifndef HX_EE
    (scroll_sfx FALSE)
-   #endif
    (enter
       {dialog_panel
          set_ok
