@@ -75,9 +75,11 @@
                   {/ $my_streak $notes_per_mulitplier}}}
             4}
          {== $max $my_streak}
+         #ifndef HX_EE
          {>
             {gamecfg get_num_participants}
-            1}}}
+            1
+         #endif}}}
    "award_professional_streaker")
 ({&&
       {==
@@ -99,11 +101,17 @@
          {$my_player notes_hit_fraction}
          1.0}}
    "award_serious_skills")
-({==
+(#ifndef HX_EE
+ ==
      {/
      {$my_player longest_streak}
      {$my_player get_gem_count}}
          1.0}
+  #else
+  >=
+      {$my_player notes_hit_fraction}
+      1.0}
+  #endif
    "award_flawless")
 ({&&
       {==
@@ -193,8 +201,12 @@
 ({&&
       {==
          $track
+         #ifdef HX_EE
+         "bass"
+         #else
 	        {||
-         "bass" "guitar" "drum"}}
+         "bass" "guitar" "drum"
+         #endif}}
       {>
          {/
             {$my_player longest_streak}
